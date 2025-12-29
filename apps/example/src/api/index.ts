@@ -1,5 +1,4 @@
 import { Hono } from "hono";
-import { posts } from "./posts";
 import { chat } from "./chat";
 
 const app = new Hono();
@@ -14,7 +13,6 @@ app.get("/health", (c) =>
 );
 
 // Mount sub-routers
-app.route("/posts", posts);
 app.route("/chat", chat);
 
 export default app;

@@ -187,7 +187,7 @@ export default function DocsPage() {
           <p className="text-muted-foreground mb-4">
             Call server functions from client components.
           </p>
-          <div className="grid md:grid-cols-2 gap-4">
+          <div className="grid md:grid-cols-2 gap-6">
             <CodeBlock code={clientComponentCode} lang="tsx" filename="src/components/form.tsx" />
             <CodeBlock code={serverActionCode} lang="tsx" filename="src/actions/users.ts" />
           </div>
