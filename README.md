@@ -97,7 +97,7 @@ Diezel uses [Hono](https://hono.dev) for API routes. Create your API in `src/api
 
 ```ts
 // src/api/index.ts
-import { Hono } from 'diezel'
+import { Hono } from 'hono'
 
 const app = new Hono()
 
@@ -119,7 +119,7 @@ Split your API into modules:
 
 ```ts
 // src/api/users.ts
-import { Hono } from 'diezel'
+import { Hono } from 'hono'
 
 export const users = new Hono()
 
@@ -131,7 +131,7 @@ users.post('/', async (c) => {
 })
 
 // src/api/index.ts
-import { Hono } from 'diezel'
+import { Hono } from 'hono'
 import { users } from './users'
 
 const app = new Hono()
