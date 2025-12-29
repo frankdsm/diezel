@@ -3,7 +3,7 @@
 [![npm version](https://img.shields.io/npm/v/diezel.svg)](https://www.npmjs.com/package/diezel)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-A simple, powerful React framework with RSC support.
+A simple, powerful React framework with RSC support powered by Vite and Hono.
 
 ## Quick Start
 
