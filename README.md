@@ -46,17 +46,17 @@ src/
 Create pages by adding `page.tsx` files. The folder path becomes the URL. Pages are server components by default.
 
 ```tsx
-// src/app/posts/[id]/page.tsx → /posts/:id
+// src/app/users/[id]/page.tsx → /users/:id
 import type { PageProps } from 'diezel'
 
-export default async function PostPage({ params, searchParams }: PageProps) {
-  const post = await db.posts.find(params.id)
+export default async function UserPage({ params, searchParams }: PageProps) {
+  const user = await db.users.find(params.id)
 
   return (
-    <article>
-      <h1>{post.title}</h1>
-      <p>{post.content}</p>
-    </article>
+    <div>
+      <h1>{user.name}</h1>
+      <p>{user.email}</p>
+    </div>
   )
 }
 ```
@@ -103,21 +103,15 @@ const app = new Hono()
 
 app.get('/health', (c) => c.json({ status: 'ok' }))
 
-app.get('/posts', async (c) => {
-  const posts = await db.posts.findMany()
-  return c.json(posts)
-})
-
-app.post('/posts', async (c) => {
-  const data = await c.req.json()
-  const post = await db.posts.create(data)
-  return c.json(post, 201)
+app.get('/users', async (c) => {
+  const users = await db.users.findMany()
+  return c.json(users)
 })
 
 export default app
 ```
 
-Routes are accessible at `/api/*`. For example, `/api/health` or `/api/posts`.
+Routes are accessible at `/api/*`. For example, `/api/health` or `/api/users`.
 
 ### Modular Routes
 
@@ -151,37 +145,37 @@ export default app
 Use `'use server'` for type-safe mutations from client components:
 
 ```ts
-// src/actions/posts.ts
+// src/actions/users.ts
 'use server'
 
-export async function createPost(data: { title: string; content: string }) {
-  return await db.posts.create(data)
+export async function createUser(data: { name: string; email: string }) {
+  return await db.users.create(data)
 }
 
-export async function deletePost(id: number) {
-  await db.posts.delete(id)
+export async function deleteUser(id: number) {
+  await db.users.delete(id)
   return { success: true }
 }
 ```
 
 ```tsx
-// src/components/PostForm.tsx
+// src/components/UserForm.tsx
 'use client'
-import { createPost } from '../actions/posts'
+import { createUser } from '../actions/users'
 
-export function PostForm() {
+export function UserForm() {
   async function handleSubmit(formData: FormData) {
-    const post = await createPost({
-      title: formData.get('title') as string,
-      content: formData.get('content') as string,
+    const user = await createUser({
+      name: formData.get('name') as string,
+      email: formData.get('email') as string,
     })
-    console.log('Created:', post.id)
+    console.log('Created:', user.id)
   }
 
   return (
     <form action={handleSubmit}>
-      <input name="title" placeholder="Title" />
-      <textarea name="content" placeholder="Content" />
+      <input name="name" placeholder="Name" />
+      <input name="email" placeholder="Email" type="email" />
       <button type="submit">Create</button>
     </form>
   )
