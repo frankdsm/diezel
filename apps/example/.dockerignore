@@ -1,0 +1,8 @@
+node_modules
+.diezel
+.git
+.gitignore
+*.md
+.env*
+Dockerfile
+.dockerignore

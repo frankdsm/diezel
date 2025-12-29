@@ -1,0 +1,15 @@
+{
+  "name": "diezel-dev",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "dev": "pnpm --filter example dev",
+    "build": "pnpm --filter example build",
+    "start": "pnpm --filter example start"
+  },
+  "packageManager": "pnpm@10.8.0",
+  "workspaces": [
+    "packages/*",
+    "apps/*"
+  ]
+}

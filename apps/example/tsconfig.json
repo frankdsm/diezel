@@ -1,0 +1,14 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"],
+      "diezel": ["../../packages/diezel/src/index.ts"],
+      "diezel/server": ["../../packages/diezel/src/server.ts"],
+      "diezel/client": ["../../packages/diezel/src/client.ts"]
+    }
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules"]
+}
