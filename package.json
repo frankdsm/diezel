@@ -3,9 +3,9 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm --filter example dev",
-    "build": "pnpm --filter example build",
-    "start": "pnpm --filter example start"
+    "dev": "pnpm --filter diezel-docs dev",
+    "build": "pnpm --filter diezel-docs build",
+    "start": "pnpm --filter diezel-docs start"
   },
   "packageManager": "pnpm@10.8.0",
   "workspaces": [

@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": ".",
+    "types": ["node"],
     "paths": {
       "diezel": ["./src/index.ts"],
       "diezel/server": ["./src/server.ts"],
