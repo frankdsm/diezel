@@ -56,7 +56,7 @@ export default function Home() {
             </a>
           </Button>
           <Button asChild variant="outline" size="lg">
-            <a href="https://github.com/diezel">
+            <a href="https://github.com/frankdsm/diezel">
               <HugeiconsIcon icon={GithubIcon} size={16} />
               GitHub
             </a>

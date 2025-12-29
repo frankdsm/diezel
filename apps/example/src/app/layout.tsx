@@ -40,7 +40,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     Examples
                   </a>
                   <a
-                    href="https://github.com/diezel"
+                    href="https://github.com/frankdsm/diezel"
                     className="hover:text-foreground transition-colors"
                   >
                     GitHub
@@ -68,7 +68,7 @@ export default function RootLayout({ children }: LayoutProps) {
                     Documentation
                   </a>
                   <a
-                    href="https://github.com/diezel"
+                    href="https://github.com/frankdsm/diezel"
                     className="hover:text-foreground transition-colors"
                   >
                     GitHub
