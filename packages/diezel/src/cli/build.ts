@@ -1,5 +1,4 @@
 import { build as viteBuild } from 'vite'
-import react from '@vitejs/plugin-react'
 import { createNitro, build as nitroBuild, prepare, copyPublicAssets } from 'nitropack'
 import { join } from 'path'
 import { mkdir, writeFile } from 'fs/promises'
@@ -255,9 +254,7 @@ if (document.readyState === 'loading') {
 `)
 
     await viteBuild({
-      configFile: false,
       root: process.cwd(),
-      plugins: [react()],
       build: {
         outDir: join(outDir, 'public'),
         emptyOutDir: false,
@@ -269,9 +266,6 @@ if (document.readyState === 'loading') {
           }
         },
         minify: true
-      },
-      resolve: {
-        alias: { '@': join(process.cwd(), 'src') }
       },
       logLevel: 'warn'
     })

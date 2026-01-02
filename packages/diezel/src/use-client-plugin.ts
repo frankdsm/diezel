@@ -26,8 +26,9 @@ function getModulePath(filePath: string): string {
 /**
  * Vite plugin for transforming 'use client' files during SSR
  *
- * Wraps exported components with hydration markers so the client
- * can find and hydrate them.
+ * During SSR, client components are replaced with placeholder divs
+ * that contain hydration data. The client will load and hydrate
+ * the actual components.
  */
 export function useClientPlugin(): Plugin {
   return {
@@ -87,53 +88,33 @@ export function useClientPlugin(): Plugin {
         return null;
       }
 
-      let transformed = code;
-
-      // Build wrapper code
-      let wrapperCode = `\n// Diezel: Client component wrappers for SSR\n`;
-      wrapperCode += `import { createElement as __createElement } from 'react';\n\n`;
+      // Generate stub module that only exports placeholder components
+      // We don't include the original code at all - no hooks will execute
+      let stubCode = `// Diezel: Client component stubs for SSR\n`;
+      stubCode += `// Original component code is not executed during SSR\n`;
+      stubCode += `import { createElement as __createElement } from 'react';\n\n`;
 
       for (const exp of exports) {
-        const originalName = `__Original_${exp.name}`;
-
-        // Rename original export
-        if (exp.isDefault) {
-          // For default exports
-          transformed = transformed.replace(
-            /export\s+default\s+function\s+(\w+)?/,
-            `function ${originalName}`
-          );
-        } else {
-          // For named function exports
-          transformed = transformed.replace(
-            new RegExp(`export\\s+function\\s+(${exp.name})\\s*\\(`),
-            `function ${originalName}(`
-          );
-          // For named const exports
-          transformed = transformed.replace(
-            new RegExp(`export\\s+const\\s+(${exp.name})\\s*=`),
-            `const ${originalName} =`
-          );
-        }
-
-        // Add wrapper
         const exportKeyword = exp.isDefault ? "default " : "";
         const funcName = exp.isDefault ? "" : exp.name;
-        wrapperCode += `export ${exportKeyword}function ${funcName}(props) {
+
+        // Export a stub that renders only a placeholder div with hydration data
+        // No hooks, no state, no effects - just a div with data attributes
+        stubCode += `export ${exportKeyword}function ${funcName}(props) {
   return __createElement(
     'div',
     {
       'data-diezel-island': '${modulePath}',
       'data-diezel-component': '${exp.name}',
-      'data-diezel-props': JSON.stringify(props || {})
-    },
-    __createElement(${originalName}, props)
+      'data-diezel-props': JSON.stringify(props || {}),
+      'style': { display: 'contents' }
+    }
   );
 }\n\n`;
       }
 
       return {
-        code: transformed + wrapperCode,
+        code: stubCode,
         map: null,
       };
     },

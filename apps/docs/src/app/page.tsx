@@ -40,7 +40,9 @@ export default function Home() {
     <>
       {/* Hero */}
       <section className="py-32 md:py-40 text-center">
-        <Badge variant="secondary" className="mb-4">Public Beta</Badge>
+        <Badge variant="secondary" className="mb-4">
+          Public Beta
+        </Badge>
         <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-6">
           The full-stack React framework
         </h1>
